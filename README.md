@@ -5,7 +5,6 @@
 
 Semiconductor device SPICE model simulation, parameter extraction, and sensitivity analysis toolkit — bridging physics-based modeling with mathematical optimization and ML.
 
-**Target Role:** SPICE Model Development Engineer (模型研发工程师) — SMIC J12509
 
 ---
 
