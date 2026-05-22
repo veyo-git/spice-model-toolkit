@@ -297,7 +297,7 @@ def build_sensitivity_tab():
 
 def create_app():
     """Create the Gradio Blocks app."""
-    with gr.Blocks(title="SPICE Model Toolkit", theme=gr.themes.Soft()) as app:
+    with gr.Blocks(title="SPICE Model Toolkit") as app:
         gr.Markdown(
             """# SPICE Model Parameter Extraction Toolkit
 
@@ -320,4 +320,4 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.launch(share=False)
+    app.launch(share=False, theme=gr.themes.Soft())

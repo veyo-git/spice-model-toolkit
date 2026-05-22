@@ -55,7 +55,7 @@ def verify_device_physics(verbose=True):
     id_vg, id_vd = generate_iv_curves(model)
 
     # Check 1: Current at Vgs=VTH should be small
-    ids_at_vth = float(model.ids(params.VTH0, 0.1))
+    ids_at_vth = float(np.asarray(model.ids(params.VTH0, 0.1)).item())
     if verbose:
         print(f"  Ids(Vgs=VTH0={params.VTH0}V, Vds=0.1V) = {ids_at_vth:.3e} A")
     assert ids_at_vth < 1e-5, f"Ids at VTH should be small, got {ids_at_vth}"
@@ -79,7 +79,7 @@ def verify_device_physics(verbose=True):
     assert abs(vth_ext - params.VTH0) < 0.15, f"VTH extraction off by {abs(vth_ext - params.VTH0):.3f}V"
 
     # Check 5: Subthreshold current is small at negative Vgs (below threshold)
-    ids_sub = float(model.ids(-0.1, 1.0))
+    ids_sub = float(np.asarray(model.ids(-0.1, 1.0)).item())
     assert ids_sub < 1e-3, f"Current at Vgs=-0.1V should be very small, got {ids_sub:.3e}"
 
     if verbose:
@@ -202,7 +202,7 @@ def run_surrogate_demo(verbose=True):
     final_loss = history["test_loss"][-1]
     if verbose:
         print(f"  Final test MSE (log10 space): {final_loss:.6f}")
-        print(f"  RMSE in Ids: ~{10**np.sqrt(final_loss):.1f}×")
+        print(f"  RMSE in Ids: ~{10**np.sqrt(final_loss):.1f}x")
 
     return surrogate, history
 

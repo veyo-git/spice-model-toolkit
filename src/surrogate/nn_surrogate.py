@@ -207,7 +207,7 @@ def train_surrogate(
     # Training
     surrogate = IVSurrogate(cfg)
     optimizer = torch.optim.AdamW(surrogate.parameters(), lr=cfg.lr, weight_decay=1e-5)
-    scheduler = torch.optim.ReduceLROnPlateau(optimizer, factor=0.5, patience=20)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=20)
     criterion = nn.MSELoss()
 
     train_losses = []
@@ -276,5 +276,5 @@ def _benchmark_speed(surrogate, model_fn, param_names, sample_params):
     t_surrogate = (time.perf_counter() - t0) / 100
 
     speedup = t_physics / t_surrogate
-    print(f"\n  Speed benchmark: Physics={t_physics*1e6:.1f}µs, "
-          f"Surrogate={t_surrogate*1e6:.1f}µs, Speedup={speedup:.1f}×")
+    print(f"\n  Speed benchmark: Physics={t_physics*1e6:.1f}us, "
+          f"Surrogate={t_surrogate*1e6:.1f}us, Speedup={speedup:.1f}x")

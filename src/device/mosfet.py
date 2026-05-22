@@ -351,7 +351,8 @@ class MOSFETLevel3:
         # Effective drain voltage (smooth transition to saturation)
         # V_DS_eff = V_DS / (1 + (V_DS / V_DSsat)^m)^(1/m)
         m = 3.0  # smoothing exponent
-        ratio = np.where(v_dsat > 1e-12, vds / v_dsat, 1e6)
+        with np.errstate(divide='ignore', invalid='ignore'):
+            ratio = np.where(v_dsat > 1e-12, vds / v_dsat, 1e6)
         vds_eff = vds / (1.0 + ratio ** m) ** (1.0 / m)
 
         # Drain current with mobility degradation
